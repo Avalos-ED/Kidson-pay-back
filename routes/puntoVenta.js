@@ -16,7 +16,7 @@ const {
 
 const router = Router();
 
-router.get( '/', getPuntoVenta);
+router.get( '/', validarJWT, getPuntoVenta);
 
 router.post( 
     '/',

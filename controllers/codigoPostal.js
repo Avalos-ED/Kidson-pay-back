@@ -9,7 +9,6 @@ const getCodigoPostal = async (req, res = response) => {
                                 .find()
                                 .skip( desde )
                                 .limit( 20 );
-
     const total = await CodigoPostal.countDocuments(); */
 
     const [ codigoPostal, total ] = await Promise.all([
@@ -26,6 +25,26 @@ const getCodigoPostal = async (req, res = response) => {
         codigoPostal,
         total
     })
+}
+
+const getCodigoPostalByCP = async ( req, res = response) => {
+    const cp = req.params.cp;
+    try {
+
+        const codigoPostal = await CodigoPostal.find().where('d_codigo').equals(cp);
+
+        return res.status(200).json({
+            ok: true,
+            codigoPostal
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({
+            ok:false,
+            msg: 'Error al consultar el CP'
+        });
+    }
 }
 
 const crearCodigoPostal = (req, res = response) => {
@@ -51,7 +70,8 @@ const borrarCodigoPoastal = (req, res = response) => {
 
 module.exports = {
     getCodigoPostal,
+    getCodigoPostalByCP,
     crearCodigoPostal,
     actualizarCodigoPostal,
-    borrarCodigoPoastal
+    borrarCodigoPoastal,
 }

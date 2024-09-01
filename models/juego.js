@@ -31,11 +31,9 @@ const JuegoSchema = Schema ({
     },
     documento: {
         type: String,
-        required:true
     },
     imgMontable: {
         type: String,
-        required:true
     },
     inmovilizado: {
         type: String,

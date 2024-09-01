@@ -16,17 +16,17 @@ const {
 
 const router = Router();
 
-router.get( '/', getJuego);
+router.get( '/', validarJWT, getJuego);
 
 router.post( 
     '/',
     [
         validarJWT,
-        check('centroCosto', 'El centro de costo debe ser valido').isMongoId(),
-        check('codigoPostal', 'El codigo postal debe ser valido').isMongoId(),
-        check('estado', 'El estado debe ser valido').isMongoId(),
-        check('puntoVenta', 'El punto de venta de costo debe ser valido').isMongoId(),
-        check('tipo', 'El tipo debe ser valido').isMongoId(),
+        //check('centroCosto', 'El centro de costo debe ser valido').isMongoId(),
+        //check('codigoPostal', 'El codigo postal debe ser valido').isMongoId(),
+        //check('estado', 'El estado debe ser valido').isMongoId(),
+        //check('puntoVenta', 'El punto de venta de costo debe ser valido').isMongoId(),
+        //check('tipo', 'El tipo debe ser valido').isMongoId(),
         validarCampos
     ], 
     crearJuego
@@ -34,10 +34,14 @@ router.post(
 
 router.put( 
     '/:id',
-    [], 
+    [
+        validarJWT,
+        check('descripcionGenerales', 'La descripcion general es requerida').not().isEmpty(),
+        validarCampos
+    ], 
     actualizarJuego
 );
 
-router.delete( '/:id', borrarJuego);
+router.delete( '/:id', validarJWT, borrarJuego);
 
 module.exports = router;

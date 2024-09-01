@@ -10,6 +10,7 @@ const fileUpload = ( req, res = response) => {
     const tipo = req.params.tipo;
     const id   = req.params.id;
 
+    console.log('rew juego upload', req);
     //Validar tipo
     const tiposValidos = ['juego'];
     if( !tiposValidos.includes(tipo)){

@@ -16,7 +16,7 @@ const {
 
 const router = Router();
 
-router.get( '/', getCentroCosto);
+router.get( '/', validarJWT, getCentroCosto);
 
 router.post( 
     '/',

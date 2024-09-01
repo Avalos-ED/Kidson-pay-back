@@ -36,12 +36,28 @@ const login = async(req, res = response) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            ok:false,
+            ok: false,
             msg: 'Error inesperado'
         });
     }
 }
 
+const renewToke = async( req, res = response ) => {
+    const uid = req.uid;
+
+    //Generar el TOKEN - JWT
+    const token = await generarJWT(uid);
+
+    const usuario = await Usuario.findById(uid);
+
+    res.status(200).json({
+        ok: true,
+        token,
+        usuario
+    })
+}
+
 module.exports = {
-    login
+    login,
+    renewToke
 }

@@ -11,12 +11,14 @@ const {
     getCodigoPostal,
     crearCodigoPostal,
     actualizarCodigoPostal,
-    borrarCodigoPoastal
+    borrarCodigoPoastal,
+    getCodigoPostalByCP
 } = require('../controllers/codigoPostal');
 
 const router = Router();
 
 router.get( '/', validarJWT , getCodigoPostal);
+router.get( '/:cp', validarJWT , getCodigoPostalByCP);
 
 router.post( 
     '/',

@@ -12,10 +12,13 @@ const app = express();
 // Configuracion de CORS
 app.use(cors());
 
+// Carpeta pública
+app.use( express.static('public'));
+
 // Lectura y parseo del Body
 app.use( express.json() );
 
-// Lectura del body
+// Lectura del bodys
 app.use( express.json() );
 
 // Base de Datos
