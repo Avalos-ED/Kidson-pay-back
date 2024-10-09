@@ -9,6 +9,7 @@ const { actualizarImagen } = require("../helpers/actualizar-imagen");
 const fileUpload = ( req, res = response) => {
     const tipo = req.params.tipo;
     const id   = req.params.id;
+    const tipoArchivo = req.params.tipoArchivo;
 
     console.log('rew juego upload', req);
     //Validar tipo
@@ -28,11 +29,17 @@ const fileUpload = ( req, res = response) => {
         });
     }
 
-    //Procesar la imagen
-    const file = req.files.imagen;
+    //Procesar la archivo
+    const file = req.files.archivo;
     const nombreCortado = file.name.split('.');
     const extencionArchivo = nombreCortado[nombreCortado.length -1];
-    const extencionesValidas = ['png','jpg','jpeg','gif'];
+    let extencionesValidas;
+
+    if ( tipoArchivo === 'img' ) {
+        extencionesValidas = ['png','jpg','jpeg','gif'];
+    } else if ( tipoArchivo === 'doc' ){
+        extencionesValidas = ['pdf'];
+    }
 
     if(!extencionesValidas.includes(extencionArchivo)){
         return res.status(400).json({
@@ -58,7 +65,7 @@ const fileUpload = ( req, res = response) => {
         }
 
         //Actualizar base de datos
-        actualizarImagen(tipo, id, nombreArchivo);
+        actualizarImagen(tipo, id, nombreArchivo, tipoArchivo);
 
         res.status(200).json({
             ok: true,

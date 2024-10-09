@@ -76,7 +76,7 @@ const actualizarJuego = async(req, res = response) => {
         if ( !juego ){
             return res.status(404).json({
                 ok: false,
-                msg: 'Hospital no encontrado'
+                msg: 'Juego no encontrado'
             });
         }
 
@@ -88,7 +88,7 @@ const actualizarJuego = async(req, res = response) => {
 
         return res.status(200).json({
             ok: true,
-            jugo: JuegoActualizado
+            juego: JuegoActualizado
         });
 
     } catch (error) {

@@ -9,7 +9,7 @@ const borrarImagen = (path, img) => {
     }
 }
 
-const actualizarImagen = async(tipo, id, nombreArchivo) => {
+const actualizarImagen = async(tipo, id, nombreArchivo, tipoArchivo) => {
     switch (tipo) {
         case 'juego':
             const juego = await Juego.findById(id);
@@ -18,9 +18,16 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
                 return false;
             }
 
-            borrarImagen('./uploads/juego/', juego.imgMontable);
+            if (juego.imgMontable !== '') {
+                borrarImagen('./uploads/juego/', juego.imgMontable);
+            }
             
-            juego.imgMontable = nombreArchivo;
+            if ( tipoArchivo === 'img' ) {
+                juego.imgMontable = nombreArchivo;
+            } else if ( tipoArchivo === 'doc' ){
+                juego.documento = nombreArchivo;
+            }
+            
             await juego.save();
             return true;
         break;
